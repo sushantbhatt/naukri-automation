@@ -5,8 +5,15 @@ No external driver download needed - browsers are bundled
 
 import os
 import asyncio
-from playwright.async_api import async_playwright
 from pathlib import Path
+from playwright.async_api import async_playwright
+
+# Try to load from .env file if it exists (for local development)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 async def login_naukri(page, email, password):
     """
@@ -234,8 +241,14 @@ def main():
     """
     Main function
     """
-    email = os.getenv('NAUKRI_EMAIL', 'bhattsushant4@gmail.com')
-    password = os.getenv('NAUKRI_PASSWORD', 'sushantbhattbhatt4')
+    email = os.getenv('NAUKRI_EMAIL')
+    password = os.getenv('NAUKRI_PASSWORD')
+    
+    if not email or not password:
+        print("❌ Error: NAUKRI_EMAIL and NAUKRI_PASSWORD environment variables must be set!")
+        print("\nFor GitHub Actions: Add them in Settings → Secrets and variables → Actions")
+        print("For Local: Create .env file or set environment variables")
+        return
     
     # Get resume path - try Resume.pdf first, then test.pdf
     resume_path = os.path.join(os.path.dirname(__file__), 'Resume.pdf')
