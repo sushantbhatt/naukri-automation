@@ -1,0 +1,2 @@
+playwright
+geckodriver-autoinstaller>=0.1.0
