@@ -192,11 +192,11 @@ async def main_automation(email, password, resume_path):
     async with async_playwright() as p:
         # Launch Chromium
         try:
-            browser = await p.edge.launch(headless=False)
+            browser = await p.edge.launch(headless=True)
             print("Launching Microsoft Edge...")
         except:
             print("Launching Chromium...")
-            browser = await p.chromium.launch(headless=False)
+            browser = await p.chromium.launch(headless=True)
         
         try:
             context = await browser.new_context()
