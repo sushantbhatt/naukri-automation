@@ -1,9 +1,9 @@
-name: Run Naukri Automation Every Hour
+name: Run Naukri Automation Every 4 Hours
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Run every 1 hour
-  workflow_dispatch:     # Allow manual trigger from GitHub UI
+    - cron: '0 */4 * * *'  # Run every 4 hours (00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC)
+  workflow_dispatch:       # Allow manual trigger from GitHub UI
 
 jobs:
   naukri-automation:
@@ -11,7 +11,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set up Python
         uses: actions/setup-python@v4
